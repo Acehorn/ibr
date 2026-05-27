@@ -1,0 +1,3 @@
+access_point_id,campus_id,point_code,point_name,point_type,is_active
+ap_001,campus_cdmx,gate-main,Acceso principal,gate,true
+ap_002,campus_cdmx,lab-ai,Laboratorio IA,lab,true

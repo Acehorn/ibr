@@ -1,0 +1,4 @@
+policy_id,person_id,person_type,campus_id,access_point_id,allowed_start_time,allowed_end_time,allowed_days,min_face_score,status
+pol_001,stu_001,,campus_cdmx,ap_001,06:00:00,22:00:00,1|2|3|4|5|6,0.7000,active
+pol_002,,staff,campus_cdmx,,00:00:00,23:59:59,1|2|3|4|5|6|7,0.6500,active
+pol_003,vis_001,,campus_cdmx,ap_001,08:00:00,18:00:00,1|2|3|4|5,0.7500,active

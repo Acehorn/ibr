@@ -1,0 +1,4 @@
+identity_id,person_id,country,id_type,id_value,id_value_hash,is_primary
+id_001,stu_001,MX,STUDENT_ID,A01234567,,true
+id_002,emp_001,MX,EMPLOYEE_ID,E00991,,true
+id_003,vis_001,MX,INE,,sha256_hash_ine_visitor,true

@@ -1,0 +1,5 @@
+legacy_system,legacy_id,external_ref,institutional_id,person_type,first_name,last_name,email,phone,program_code,campus_code,status
+legacy_sis,S1001,EXT-1001,A00124567,student,María,López,maria.lopez@ibero.mx,5511111111,ARQ,SANTA_FE,ACTIVE
+legacy_sis,S1002,EXT-1002,A00124568,student,Carlos,Hernández,carlos.hernandez@ibero.mx,5522222222,DER,SANTA_FE,ACTIVE
+legacy_hr,E9001,EMP-9001,NOM-9981,staff,Ana,Rivera,ana.rivera@ibero.mx,5533333333,,SANTA_FE,ACTIVE
+legacy_vis,V7001,VIS-7001,VIS-7001,visitor,Luis,Mendoza,luis.mendoza@mail.com,5544444444,,SANTA_FE,ACTIVE

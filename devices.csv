@@ -1,0 +1,4 @@
+access_point_code,code,device_type,serial_number,ip_address,firmware_version,status
+AP-01,CAM-ENT-01,camera,CAM001,10.0.0.21,1.0.3,ACTIVE
+AP-01,TRN-ENT-01,turnstile,TRN001,10.0.0.22,2.1.0,ACTIVE
+AP-02,TAB-BIB-01,tablet,TAB001,10.0.0.31,3.0.1,ACTIVE

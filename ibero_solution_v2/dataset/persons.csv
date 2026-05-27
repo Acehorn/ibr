@@ -1,0 +1,4 @@
+person_id,legacy_system,legacy_id,person_type,institutional_id,first_name,last_name,second_last_name,email,phone,campus_id,program_id,status
+stu_001,legacy_siu,1001,student,A01234567,Daniel,Flores,Ramirez,daniel@ibero.mx,5512345678,campus_cdmx,prog_ds,active
+emp_001,legacy_hr,991,staff,E00991,Ana,Lopez,Gomez,ana.lopez@ibero.mx,5598765432,campus_cdmx,,active
+vis_001,legacy_vis,5001,visitor,VIS2026001,Carlos,Ruiz,,carlos@mail.com,5511111111,campus_cdmx,,active

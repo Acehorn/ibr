@@ -1,0 +1,4 @@
+campus_code,code,name,building,zone,direction_mode,status
+SANTA_FE,AP-01,Acceso Principal,Edificio A,Norte,BOTH,ACTIVE
+SANTA_FE,AP-02,Biblioteca,Edificio B,Centro,BOTH,ACTIVE
+SANTA_FE,AP-03,Laboratorios,Edificio C,Sur,BOTH,ACTIVE

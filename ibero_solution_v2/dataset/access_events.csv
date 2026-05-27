@@ -1,0 +1,3 @@
+access_event_id,person_id,device_id,access_point_id,event_type,direction,credential_type,validation_id,access_result,deny_reason,snapshot_media_id,occurred_at_utc
+acc_001,stu_001,dev_001,ap_001,entry,in,face,val_001,ALLOW,,,2026-04-16T13:01:00Z
+acc_002,vis_001,dev_001,ap_001,attempt,in,face,val_002,DENY,NO_MATCH,,2026-04-16T13:05:00Z

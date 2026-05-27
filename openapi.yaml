@@ -1,0 +1,158 @@
+openapi: 3.0.3
+info:
+  title: IBERO Identity & Access API
+  version: 1.0.0
+  description: API neutral para migración e implementación de identidad, facematch y control de accesos.
+servers:
+  - url: https://api.ibero.local
+paths:
+  /persons:
+    post:
+      summary: Alta de persona
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonCreate'
+      responses:
+        '201':
+          description: Persona creada
+  /persons/{personId}:
+    get:
+      summary: Obtener persona
+      parameters:
+        - in: path
+          name: personId
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Persona
+  /credentials/validate:
+    post:
+      summary: Validar credencial
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [credentialCode]
+              properties:
+                credentialCode: { type: string }
+      responses:
+        '200':
+          description: Resultado de validación
+  /biometrics/enroll:
+    post:
+      summary: Enrolar biométrico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BiometricEnrollRequest'
+      responses:
+        '201':
+          description: Perfil biométrico creado
+  /facematch/verify:
+    post:
+      summary: Ejecutar facematch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaceVerifyRequest'
+      responses:
+        '200':
+          description: Resultado de match
+  /access/decision:
+    post:
+      summary: Decidir acceso
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessDecisionRequest'
+      responses:
+        '200':
+          description: Decisión final
+  /migration/legacy/persons:import:
+    post:
+      summary: Importar personas desde legado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sourceSystem, records]
+              properties:
+                sourceSystem: { type: string }
+                records:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        '202':
+          description: Import aceptado
+  /events/access:
+    get:
+      summary: Listar eventos de acceso
+      parameters:
+        - in: query
+          name: personId
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Eventos
+components:
+  schemas:
+    PersonCreate:
+      type: object
+      required: [personType, firstName, lastName, campusCode]
+      properties:
+        externalRef: { type: string }
+        institutionalId: { type: string }
+        personType: { type: string, enum: [student, staff, visitor] }
+        firstName: { type: string }
+        lastName: { type: string }
+        email: { type: string }
+        phone: { type: string }
+        programCode: { type: string }
+        campusCode: { type: string }
+        status: { type: string, default: ACTIVE }
+    BiometricEnrollRequest:
+      type: object
+      required: [personId, templateHash]
+      properties:
+        personId: { type: string, format: uuid }
+        providerName: { type: string, example: sumsub }
+        providerProfileRef: { type: string }
+        templateHash: { type: string }
+        templateVersion: { type: string }
+        livenessEnabled: { type: boolean, default: true }
+    FaceVerifyRequest:
+      type: object
+      required: [deviceCode, accessPointCode, templateHashCandidate]
+      properties:
+        personHint: { type: string, description: institutionalId opcional }
+        credentialCode: { type: string }
+        deviceCode: { type: string }
+        accessPointCode: { type: string }
+        templateHashCandidate: { type: string }
+        evidenceUri: { type: string }
+        providerName: { type: string, default: internal }
+    AccessDecisionRequest:
+      type: object
+      required: [direction, accessPointCode, deviceCode]
+      properties:
+        direction: { type: string, enum: [ENTRY, EXIT] }
+        accessPointCode: { type: string }
+        deviceCode: { type: string }
+        credentialCode: { type: string }
+        personId: { type: string, format: uuid }
+        facematchEventId: { type: string, format: uuid }

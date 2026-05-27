@@ -1,0 +1,3 @@
+biometric_profile_id,person_id,provider_name,provider_profile_ref,template_hash,template_version,liveness_enabled,status
+bio_001,stu_001,internal,prof_001,tmpl_hash_stu_001,v1,true,active
+bio_002,emp_001,internal,prof_002,tmpl_hash_emp_001,v1,true,active

@@ -1,0 +1,4 @@
+device_id,access_point_id,device_code,device_type,vendor,serial_number,status
+dev_001,ap_001,dev-cam-gate-01,camera,Hikvision,HK-001,active
+dev_002,ap_001,dev-reader-gate-01,reader,ZKTeco,ZK-001,active
+dev_003,ap_002,dev-cam-lab-01,camera,Axis,AX-001,active

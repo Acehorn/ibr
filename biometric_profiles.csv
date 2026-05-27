@@ -1,0 +1,4 @@
+institutional_id,provider_name,provider_profile_ref,template_hash,template_version,liveness_enabled,status
+A00124567,legacy_face,FACE-1001,hash_face_1001,v1,true,ACTIVE
+A00124568,legacy_face,FACE-1002,hash_face_1002,v1,true,ACTIVE
+NOM-9981,legacy_face,FACE-9001,hash_face_9001,v1,true,ACTIVE

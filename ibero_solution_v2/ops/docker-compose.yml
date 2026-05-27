@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ibero
+      POSTGRES_USER: ibero
+      POSTGRES_PASSWORD: ibero
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../db/000_schema.sql:/docker-entrypoint-initdb.d/000_schema.sql:ro
+
+  identity-service:
+    build:
+      context: ..
+      dockerfile: services/identity-service/Dockerfile
+    environment: &db_env
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ibero
+      DB_USER: ibero
+      DB_PASSWORD: ibero
+    depends_on: [postgres]
+    ports: ["8001:8001"]
+
+  facematch-service:
+    build:
+      context: ..
+      dockerfile: services/facematch-service/Dockerfile
+    environment: *db_env
+    depends_on: [postgres]
+    ports: ["8002:8002"]
+
+  access-service:
+    build:
+      context: ..
+      dockerfile: services/access-service/Dockerfile
+    environment: *db_env
+    depends_on: [postgres]
+    ports: ["8003:8003"]
+
+  migration-service:
+    build:
+      context: ..
+      dockerfile: services/migration-service/Dockerfile
+    environment: *db_env
+    depends_on: [postgres]
+    ports: ["8004:8004"]
+
+  notifier-service:
+    build:
+      context: ..
+      dockerfile: services/notifier-service/Dockerfile
+    environment: *db_env
+    depends_on: [postgres]
+    ports: ["8005:8005"]

@@ -1,0 +1,5 @@
+institutional_id,access_point_code,weekday_mask,start_time,end_time,min_face_score,allow_entry,allow_exit,rule_reason,status
+A00124567,AP-01,1111100,06:00:00,22:00:00,0.82,true,true,Alumno activo,ACTIVE
+A00124568,AP-01,1111100,06:00:00,22:00:00,0.82,true,true,Alumno activo,ACTIVE
+NOM-9981,AP-01,1111111,00:00:00,23:59:59,0.78,true,true,Colaborador activo,ACTIVE
+VIS-7001,AP-02,1111100,08:00:00,18:00:00,0.85,true,true,Visitante autorizado,ACTIVE

@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: IBERO Identity Access API
+  version: 2.0.0
+  description: API neutral para identidad, biometría, accesos y migración.
+servers:
+  - url: http://localhost
+paths:
+  /persons:
+    post:
+      summary: Crear persona
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PersonCreate' }
+      responses:
+        '201': { description: Creado }
+  /persons/{personId}:
+    get:
+      summary: Obtener persona
+      parameters:
+        - in: path
+          name: personId
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: OK }
+  /identities:
+    post:
+      summary: Registrar identidad
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/IdentityCreate' }
+      responses:
+        '201': { description: Creado }
+  /credentials:
+    post:
+      summary: Registrar credencial
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CredentialCreate' }
+      responses:
+        '201': { description: Creado }
+  /biometrics/enroll:
+    post:
+      summary: Enrolar biométrico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BiometricEnrollRequest' }
+      responses:
+        '201': { description: Creado }
+  /facematch/verify:
+    post:
+      summary: Verificación facial
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/FaceVerifyRequest' }
+      responses:
+        '200': { description: Resultado }
+  /access/decision:
+    post:
+      summary: Decidir acceso
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AccessDecisionRequest' }
+      responses:
+        '200': { description: Resultado }
+  /migration/legacy/persons:import:
+    post:
+      summary: Importar personas desde legado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LegacyImportRequest' }
+      responses:
+        '202': { description: Aceptado }
+components:
+  schemas:
+    PersonCreate:
+      type: object
+      required: [person_id, person_type, first_name, last_name]
+      properties:
+        person_id: { type: string }
+        legacy_system: { type: string }
+        legacy_id: { type: string }
+        person_type: { type: string, enum: [student, staff, visitor, contractor] }
+        institutional_id: { type: string }
+        first_name: { type: string }
+        last_name: { type: string }
+        second_last_name: { type: string }
+        email: { type: string }
+        phone: { type: string }
+        campus_id: { type: string }
+        program_id: { type: string }
+        status: { type: string }
+    IdentityCreate:
+      type: object
+      required: [identity_id, person_id, id_type]
+      properties:
+        identity_id: { type: string }
+        person_id: { type: string }
+        country: { type: string }
+        id_type: { type: string }
+        id_value: { type: string }
+        id_value_hash: { type: string }
+        is_primary: { type: boolean }
+    CredentialCreate:
+      type: object
+      required: [credential_id, person_id, credential_type]
+      properties:
+        credential_id: { type: string }
+        person_id: { type: string }
+        credential_type: { type: string, enum: [face, qr, nfc, barcode, manual] }
+        credential_value: { type: string }
+        credential_value_hash: { type: string }
+        valid_from_utc: { type: string, format: date-time }
+        valid_until_utc: { type: string, format: date-time }
+    BiometricEnrollRequest:
+      type: object
+      required: [person_id, provider_name, template_hash]
+      properties:
+        person_id: { type: string }
+        provider_name: { type: string }
+        provider_profile_ref: { type: string }
+        template_hash: { type: string }
+        template_version: { type: string }
+        liveness_enabled: { type: boolean }
+    FaceVerifyRequest:
+      type: object
+      required: [person_id, device_code, access_point_code, candidate_template_hash]
+      properties:
+        person_id: { type: string }
+        device_code: { type: string }
+        access_point_code: { type: string }
+        candidate_template_hash: { type: string }
+        evidence_uri: { type: string }
+        provider_name: { type: string }
+    AccessDecisionRequest:
+      type: object
+      required: [person_id, device_code, access_point_code, event_type, direction, validation_id]
+      properties:
+        person_id: { type: string }
+        device_code: { type: string }
+        access_point_code: { type: string }
+        event_type: { type: string, enum: [entry, exit, attempt] }
+        direction: { type: string, enum: [in, out] }
+        validation_id: { type: string }
+        credential_type: { type: string, enum: [face, qr, nfc, manual] }
+    LegacyImportRequest:
+      type: object
+      required: [source_system, records]
+      properties:
+        source_system: { type: string }
+        records:
+          type: array
+          items: { type: object }

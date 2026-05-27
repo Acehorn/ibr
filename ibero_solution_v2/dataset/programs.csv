@@ -1,0 +1,4 @@
+program_id,program_code,program_name,academic_level,campus_id,status
+prog_ds,DS,Data Science,licenciatura,campus_cdmx,active
+prog_arq,ARQ,Arquitectura,licenciatura,campus_cdmx,active
+prog_mae,MAE,Maestría en Educación,maestria,campus_santa_fe,active
